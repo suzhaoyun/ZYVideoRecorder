@@ -14,6 +14,7 @@
 		5866495A1E63C2AB00C7FDC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 586649591E63C2AB00C7FDC4 /* Assets.xcassets */; };
 		5866495D1E63C2AB00C7FDC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5866495B1E63C2AB00C7FDC4 /* LaunchScreen.storyboard */; };
 		586649671E63C2D200C7FDC4 /* ZYVideoRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 586649661E63C2D200C7FDC4 /* ZYVideoRecord.m */; };
+		58DFF3F01E7644D9006B38C5 /* ZYVideoWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DFF3EF1E7644D9006B38C5 /* ZYVideoWriter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,8 @@
 		5866495E1E63C2AB00C7FDC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		586649651E63C2D200C7FDC4 /* ZYVideoRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYVideoRecord.h; sourceTree = "<group>"; };
 		586649661E63C2D200C7FDC4 /* ZYVideoRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYVideoRecord.m; sourceTree = "<group>"; };
+		58DFF3EE1E7644D9006B38C5 /* ZYVideoWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYVideoWriter.h; sourceTree = "<group>"; };
+		58DFF3EF1E7644D9006B38C5 /* ZYVideoWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYVideoWriter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +91,8 @@
 			children = (
 				586649651E63C2D200C7FDC4 /* ZYVideoRecord.h */,
 				586649661E63C2D200C7FDC4 /* ZYVideoRecord.m */,
+				58DFF3EE1E7644D9006B38C5 /* ZYVideoWriter.h */,
+				58DFF3EF1E7644D9006B38C5 /* ZYVideoWriter.m */,
 			);
 			path = ZYVideoRecord;
 			sourceTree = "<group>";
@@ -168,6 +173,7 @@
 				586649521E63C2AB00C7FDC4 /* AppDelegate.m in Sources */,
 				5866494F1E63C2AB00C7FDC4 /* main.m in Sources */,
 				586649671E63C2D200C7FDC4 /* ZYVideoRecord.m in Sources */,
+				58DFF3F01E7644D9006B38C5 /* ZYVideoWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +336,7 @@
 				586649631E63C2AB00C7FDC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

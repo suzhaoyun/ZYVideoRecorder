@@ -36,9 +36,9 @@
 /// BOOL : 是否成功
 - (BOOL)startRecord;
 
-/// 定制录制
-/// BOOL : 是否成功
-- (BOOL)stopRecord;
+/// 停止录制
+/// return : fileURL
+- (NSString *)stopRecord;
 
 /// 切换摄像头
 /// BOOL : 是否成功
@@ -49,4 +49,3 @@
 - (BOOL)switchFlashWithMode:(AVCaptureFlashMode)mode;
 
 @end
-

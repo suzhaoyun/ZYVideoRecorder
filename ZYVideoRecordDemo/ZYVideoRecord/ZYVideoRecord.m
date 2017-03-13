@@ -8,11 +8,9 @@
 
 #import "ZYVideoRecord.h"
 #import <AVFoundation/AVFoundation.h>
+#import "ZYVideoWriter.h"
 
-static NSUInteger AudioAlertTag = 10;
-static NSUInteger VideoAlertTag = 11;
-
-@interface ZYVideoRecord ()<UIAlertViewDelegate>
+@interface ZYVideoRecord ()<UIAlertViewDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>
 
 /// 捕捉会话
 @property (nonatomic, strong) AVCaptureSession *session;
@@ -22,6 +20,15 @@ static NSUInteger VideoAlertTag = 11;
 
 /// 音频输入
 @property (nonatomic, strong) AVCaptureDeviceInput *audioInput;
+
+/// 视频写入
+@property (nonatomic, strong) ZYVideoWriter *videoWriter;
+
+@end
+
+@interface ZYVideoRecord ()
+
+@property (nonatomic, strong) NSTimer *timer;
 
 @end
 
@@ -38,6 +45,26 @@ static NSUInteger VideoAlertTag = 11;
 }
 
 #pragma mark - public method
+- (BOOL)startRecord
+{
+    _isRecording = YES;
+    _currentDuration = 0.0;
+    
+    // 开始录像
+    [self.videoWriter startToRecord];
+    
+    // 开始计时
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timeUpdate) userInfo:nil repeats:YES];
+    [self.timer fire];
+    
+    return YES;
+}
+
+- (NSString *)stopRecord
+{
+    _isRecording = NO;
+    return [self.videoWriter stopRecord];
+}
 
 #pragma mark - private method
 - (void)setUp
@@ -48,6 +75,10 @@ static NSUInteger VideoAlertTag = 11;
     [self addVideoInput];
     
     [self addAudioInput];
+    
+    AVCaptureVideoDataOutput *dataOutPut = [[AVCaptureVideoDataOutput alloc] init];
+    [dataOutPut setSampleBufferDelegate:self queue:dispatch_get_global_queue(0, 0)];
+    [self.session addOutput:dataOutPut];
     
     [self.session startRunning];
 }
@@ -112,15 +143,25 @@ static NSUInteger VideoAlertTag = 11;
     
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
-    if (alertView.tag == AudioAlertTag) {
-        
-    }
-    else if (alertView.tag == VideoAlertTag){
-        
+    if (!self.isRecording) {
+        return;
     }
 
+    if ([captureOutput isKindOfClass:[AVCaptureVideoDataOutput class]]) {
+        [self.videoWriter appendVideoSampleBuffer:sampleBuffer];
+        NSLog(@"-------视频.....");
+    }
+    else if ([captureOutput isKindOfClass:[AVCaptureAudioDataOutput class]]){
+        [self.videoWriter appendAudioSampleBuffer:sampleBuffer];
+        NSLog(@"-------音频.....");
+    }
+}
+
+- (void)timeUpdate
+{
+    _currentDuration+=0.1;
 }
 
 #pragma mark - laze method
@@ -130,6 +171,14 @@ static NSUInteger VideoAlertTag = 11;
         _session = [[AVCaptureSession alloc] init];
     }
     return _session;
+}
+
+- (ZYVideoWriter *)videoWriter
+{
+    if (_videoWriter == nil) {
+        _videoWriter = [[ZYVideoWriter alloc] init];
+    }
+    return _videoWriter;
 }
 
 @end
