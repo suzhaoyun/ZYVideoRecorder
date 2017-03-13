@@ -8,6 +8,16 @@
 
 #import "ZYVideoWriter.h"
 
+@interface ZYVideoWriter ()
+
+@end
+
 @implementation ZYVideoWriter
+
++ (instancetype)videoWriterWithSampleBuffer:(CMSampleBufferRef)sampleBuffer
+{
+    
+    return nil;
+}
 
 @end

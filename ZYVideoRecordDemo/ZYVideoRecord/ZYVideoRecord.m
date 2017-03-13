@@ -47,6 +47,10 @@
 #pragma mark - public method
 - (BOOL)startRecord
 {
+    if (self.audioInput == nil || self.videoInput == nil) {
+        return NO;
+    }
+
     _isRecording = YES;
     _currentDuration = 0.0;
     
@@ -63,7 +67,8 @@
 - (NSString *)stopRecord
 {
     _isRecording = NO;
-    return [self.videoWriter stopRecord];
+    [self.videoWriter stopRecord];
+    return self.videoWriter.videoURL;
 }
 
 #pragma mark - private method
@@ -145,6 +150,11 @@
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
+    /// 初始化视频写入者
+    if (_videoWriter == nil && [captureOutput isKindOfClass:[AVCaptureAudioDataOutput class]]) {
+        _videoWriter = [ZYVideoWriter videoWriterWithSampleBuffer:sampleBuffer];
+    }
+    
     if (!self.isRecording) {
         return;
     }
@@ -171,14 +181,6 @@
         _session = [[AVCaptureSession alloc] init];
     }
     return _session;
-}
-
-- (ZYVideoWriter *)videoWriter
-{
-    if (_videoWriter == nil) {
-        _videoWriter = [[ZYVideoWriter alloc] init];
-    }
-    return _videoWriter;
 }
 
 @end

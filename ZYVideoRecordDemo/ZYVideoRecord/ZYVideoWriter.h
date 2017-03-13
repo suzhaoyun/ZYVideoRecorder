@@ -11,6 +11,9 @@
 
 @interface ZYVideoWriter : NSObject
 
+/// 根据输入数据 初始化writer
++ (instancetype)videoWriterWithSampleBuffer:(CMSampleBufferRef)sampleBuffer;
+
 /// 开始录像
 - (void)startToRecord;
 
@@ -22,7 +25,7 @@
 
 /// 停止录像
 /// return : URL
-- (NSString *)stopRecord;
+- (void)stopRecord;
 
 /// 视频文件URL fileURL
 @property (nonatomic, copy, readonly) NSString *videoURL;
