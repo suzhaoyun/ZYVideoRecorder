@@ -59,6 +59,11 @@ static NSString *VideoCacheDirectory = @"ZYVideoRecordCache";
     _cachePath = path;
 }
 
+
+/**
+ 初始化各项参数
+ @param sampleBuffer 音频数据 为了设置音频输入者的参数
+ */
 - (void)initPropertiesWithSampleBuffer:(CMSampleBufferRef)sampleBuffer
 {
     // 1. 初始化文件写入者
@@ -73,14 +78,14 @@ static NSString *VideoCacheDirectory = @"ZYVideoRecordCache";
     // 2. 初始化视频输入源
     _videoInput = [AVAssetWriterInput assetWriterInputWithMediaType:AVMediaTypeVideo outputSettings:@{AVVideoCodecKey:AVVideoCodecH264, AVVideoWidthKey : @720, AVVideoHeightKey : @1280}];
     
-    //表明输入是否应该调整其处理为实时数据源的数据
+    // 表明输入是否应该调整其处理为实时数据源的数据
     _videoInput.expectsMediaDataInRealTime = YES;
-    //将视频输入源加入
+    // 将视频输入源加入
     [_writer addInput:_videoInput];
     
     
     // 3. 初始化音频输入源
-    //音频的一些配置包括音频各种这里为AAC,音频通道、采样率和音频的比特率
+    // 音频的一些配置包括音频各种这里为AAC,音频通道、采样率和音频的比特率
     const AudioStreamBasicDescription *asbd = CMAudioFormatDescriptionGetStreamBasicDescription(CMSampleBufferGetFormatDescription(sampleBuffer));
     _audioInput = [AVAssetWriterInput assetWriterInputWithMediaType:AVMediaTypeAudio outputSettings:@{AVFormatIDKey : [NSNumber numberWithInt:kAudioFormatMPEG4AAC], AVNumberOfChannelsKey : @(asbd->mChannelsPerFrame), AVSampleRateKey : @(asbd->mSampleRate), AVEncoderBitRateKey : @128000}];
     //表明输入是否应该调整其处理为实时数据源的数据
@@ -89,31 +94,37 @@ static NSString *VideoCacheDirectory = @"ZYVideoRecordCache";
     [_writer addInput:_audioInput];
 }
 
+
+/**
+ 拼接数据
+ @param sampleBuffer 音视频数据
+ @param isVideo 是否是视频数据
+ */
 - (void)appendSampleBuffer:(CMSampleBufferRef)sampleBuffer isVideo:(BOOL)isVideo
 {
-    //数据是否准备写入
+    // 数据是否准备写入
     if (CMSampleBufferDataIsReady(sampleBuffer)) {
-        //写入状态为未知,保证视频先写入
+        // 写入状态为未知,保证视频先写入
         if (_writer.status == AVAssetWriterStatusUnknown && isVideo) {
-            //获取开始写入的CMTime
+            // 获取开始写入的CMTime
             CMTime startTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
             //开始写入
             [_writer startWriting];
             [_writer startSessionAtSourceTime:startTime];
         }
-        //写入失败
+        // 写入失败
         if (_writer.status == AVAssetWriterStatusFailed) {
             NSLog(@"写入失败%@", _writer.error.localizedDescription);
         }
-        //判断是否是视频
+        // 判断是否是视频
         if (isVideo) {
-            //视频输入是否准备接受更多的媒体数据
+            // 视频输入是否准备接受更多的媒体数据
             if (_videoInput.readyForMoreMediaData == YES) {
                 //拼接数据
                 [_videoInput appendSampleBuffer:sampleBuffer];
             }
         }else {
-            //音频输入是否准备接受更多的媒体数据
+            // 音频输入是否准备接受更多的媒体数据
             if (_audioInput.readyForMoreMediaData) {
                 //拼接数据
                 [_audioInput appendSampleBuffer:sampleBuffer];

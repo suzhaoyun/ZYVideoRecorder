@@ -148,7 +148,9 @@
     }
 }
 
-/// 添加视频输入
+/**
+ 添加视频输入
+ */
 - (void)addVideoInput
 {
     AVCaptureDevice *device = [self deviceWithPosition:_scenePosition];
@@ -167,7 +169,9 @@
     }
 }
 
-/// 添加音频输入
+/**
+ 添加音频输入
+ */
 - (void)addAudioInput
 {
     AVCaptureDevice *device = [AVCaptureDevice devicesWithMediaType:AVMediaTypeAudio].firstObject;
@@ -185,7 +189,9 @@
     }
 }
 
-/// 添加音视频输出
+/**
+ 添加音视频输出
+ */
 - (void)addOutPut
 {
     dispatch_queue_t global_q = dispatch_queue_create("ZYVideoRecorderQueue", DISPATCH_QUEUE_SERIAL);
@@ -206,6 +212,10 @@
     [self.session addOutput:audioDataOutPut];
 }
 
+
+/**
+ 收到音频视频数据输出的回调
+ */
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
     /// 初始化视频写入者
@@ -227,6 +237,13 @@
     }
 }
 
+
+/**
+ 根据位置获取对应的摄像头
+
+ @param position 位置
+ @return 获得的设备
+ */
 - (AVCaptureDevice *)deviceWithPosition:(AVCaptureDevicePosition)position
 {
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
@@ -238,6 +255,9 @@
     return nil;
 }
 
+/**
+ 累加录像时间
+ */
 - (void)timeUpdate
 {
     _currentDuration+=0.1;
