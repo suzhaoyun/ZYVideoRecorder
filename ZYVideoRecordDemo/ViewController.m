@@ -8,10 +8,13 @@
 
 #import "ViewController.h"
 #import "ZYVideoRecord.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface ViewController ()
 
 @property (nonatomic, strong) ZYVideoRecord *videoRecord;
+
+@property (nonatomic, strong) NSURL *videoURL;
 
 @end
 
@@ -22,6 +25,24 @@
     
     [self videoRecord];
 }
+- (IBAction)start:(id)sender {
+    [self.videoRecord startRecord];
+}
+- (IBAction)stop:(id)sender {
+    if (self.videoRecord.isRecording) {
+        [self.videoRecord stopRecordWithCompletion:^(NSURL *videoURL) {
+            NSLog(@"%@", [NSThread currentThread]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.videoURL = videoURL;
+            });
+        }];
+    }
+}
+- (IBAction)play:(id)sender {
+    MPMoviePlayerViewController *vc = [[MPMoviePlayerViewController alloc] initWithContentURL:self.videoURL];
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
 
 - (ZYVideoRecord *)videoRecord
 {

@@ -36,9 +36,13 @@
 /// BOOL : 是否成功
 - (BOOL)startRecord;
 
-/// 停止录制
-/// return : fileURL
-- (NSString *)stopRecord;
+/**
+ 停止录像
+ 
+ @param completion 完成的回调
+ @videoURL 录制的文件的FileURL
+ */
+- (void)stopRecordWithCompletion:(void (^)(NSURL *videoURL))completion;
 
 /// 切换摄像头
 /// BOOL : 是否成功

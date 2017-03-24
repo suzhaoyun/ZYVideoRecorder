@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "ZYVideoWriter.h"
 
-@interface ZYVideoRecord ()<UIAlertViewDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface ZYVideoRecord ()<UIAlertViewDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate>
 
 /// 捕捉会话
 @property (nonatomic, strong) AVCaptureSession *session;
@@ -54,9 +54,6 @@
     _isRecording = YES;
     _currentDuration = 0.0;
     
-    // 开始录像
-    [self.videoWriter startToRecord];
-    
     // 开始计时
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timeUpdate) userInfo:nil repeats:YES];
     [self.timer fire];
@@ -64,11 +61,15 @@
     return YES;
 }
 
-- (NSString *)stopRecord
+- (void)stopRecordWithCompletion:(void (^)(NSURL *))completion
 {
     _isRecording = NO;
-    [self.videoWriter stopRecord];
-    return self.videoWriter.videoURL;
+    [self.videoWriter stopRecordWithCompletion:^(NSURL *videoURL) {
+        if (completion) {
+            completion(videoURL);
+            _videoWriter = nil;
+        }
+    }];
 }
 
 #pragma mark - private method
@@ -81,9 +82,7 @@
     
     [self addAudioInput];
     
-    AVCaptureVideoDataOutput *dataOutPut = [[AVCaptureVideoDataOutput alloc] init];
-    [dataOutPut setSampleBufferDelegate:self queue:dispatch_get_global_queue(0, 0)];
-    [self.session addOutput:dataOutPut];
+    [self addOutPut];
     
     [self.session startRunning];
 }
@@ -143,9 +142,22 @@
     }
 }
 
+/// 添加音视频输出
 - (void)addOutPut
 {
+    dispatch_queue_t global_q = dispatch_get_global_queue(0, 0);
+    AVCaptureVideoDataOutput *videoDataOutPut = [[AVCaptureVideoDataOutput alloc] init];
+    videoDataOutPut.videoSettings = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [NSNumber numberWithInt:kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange], kCVPixelBufferPixelFormatTypeKey,
+                                    nil];
+    [videoDataOutPut setSampleBufferDelegate:self queue:global_q];
+    [self.session addOutput:videoDataOutPut];
+    [videoDataOutPut connectionWithMediaType:AVMediaTypeVideo].videoOrientation = AVCaptureVideoOrientationPortrait;
     
+    AVCaptureAudioDataOutput *audioDataOutPut = [[AVCaptureAudioDataOutput alloc] init];
+    [audioDataOutPut setSampleBufferDelegate:self queue:global_q];
+    [audioDataOutPut connectionWithMediaType:AVMediaTypeAudio];
+    [self.session addOutput:audioDataOutPut];
 }
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
@@ -158,13 +170,13 @@
     if (!self.isRecording) {
         return;
     }
-
+    
     if ([captureOutput isKindOfClass:[AVCaptureVideoDataOutput class]]) {
-        [self.videoWriter appendVideoSampleBuffer:sampleBuffer];
+        [self.videoWriter appendSampleBuffer:sampleBuffer isVideo:YES];
         NSLog(@"-------视频.....");
     }
     else if ([captureOutput isKindOfClass:[AVCaptureAudioDataOutput class]]){
-        [self.videoWriter appendAudioSampleBuffer:sampleBuffer];
+        [self.videoWriter appendSampleBuffer:sampleBuffer isVideo:NO];
         NSLog(@"-------音频.....");
     }
 }
