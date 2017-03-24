@@ -6,11 +6,11 @@
 //  Copyright © 2017年 ZYSu. All rights reserved.
 //
 
-#import "ZYVideoRecord.h"
+#import "ZYVideoRecorder.h"
 #import <AVFoundation/AVFoundation.h>
 #import "ZYVideoWriter.h"
 
-@interface ZYVideoRecord ()<UIAlertViewDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate>
+@interface ZYVideoRecorder ()<UIAlertViewDelegate, AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureAudioDataOutputSampleBufferDelegate>
 
 /// 捕捉会话
 @property (nonatomic, strong) AVCaptureSession *session;
@@ -26,17 +26,17 @@
 
 @end
 
-@interface ZYVideoRecord ()
+@interface ZYVideoRecorder ()
 
 @property (nonatomic, strong) NSTimer *timer;
 
 @end
 
-@implementation ZYVideoRecord
+@implementation ZYVideoRecorder
 
 + (instancetype)videoRecordWithPreview:(UIView *)preview
 {
-    ZYVideoRecord *record = [[self alloc] init];
+    ZYVideoRecorder *record = [[self alloc] init];
     AVCaptureVideoPreviewLayer *videoLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:record.session];
     videoLayer.frame = preview.bounds;
     [preview.layer insertSublayer:videoLayer atIndex:0];

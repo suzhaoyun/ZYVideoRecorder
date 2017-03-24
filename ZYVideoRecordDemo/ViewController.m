@@ -7,12 +7,12 @@
 //
 
 #import "ViewController.h"
-#import "ZYVideoRecord.h"
+#import "ZYVideoRecorder.h"
 #import <MediaPlayer/MediaPlayer.h>
 
 @interface ViewController ()
 
-@property (nonatomic, strong) ZYVideoRecord *videoRecord;
+@property (nonatomic, strong) ZYVideoRecorder *videoRecorder;
 
 @property (nonatomic, strong) NSURL *videoURL;
 
@@ -23,14 +23,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self videoRecord];
+    [self videoRecorder];
 }
 - (IBAction)start:(id)sender {
-    [self.videoRecord startRecord];
+    [self.videoRecorder startRecord];
 }
 - (IBAction)stop:(id)sender {
-    if (self.videoRecord.isRecording) {
-        [self.videoRecord stopRecordWithCompletion:^(NSURL *videoURL) {
+    if (self.videoRecorder.isRecording) {
+        [self.videoRecorder stopRecordWithCompletion:^(NSURL *videoURL) {
             NSLog(@"%@", [NSThread currentThread]);
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.videoURL = videoURL;
@@ -44,12 +44,12 @@
 }
 
 
-- (ZYVideoRecord *)videoRecord
+- (ZYVideoRecorder *)videoRecorder
 {
-    if (_videoRecord == nil) {
-        _videoRecord = [ZYVideoRecord videoRecordWithPreview:self.view];
+    if (_videoRecorder == nil) {
+        _videoRecorder = [ZYVideoRecorder videoRecordWithPreview:self.view];
     }
-    return _videoRecord;
+    return _videoRecorder;
 }
 
 @end

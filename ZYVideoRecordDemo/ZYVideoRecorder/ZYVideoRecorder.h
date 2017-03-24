@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface ZYVideoRecord : NSObject
+@interface ZYVideoRecorder : NSObject
 
 /// 当前的录制时长
 @property (nonatomic, assign, readonly) NSTimeInterval currentDuration;
@@ -27,7 +27,7 @@
 @end
 
 /// 方法
-@interface ZYVideoRecord ()
+@interface ZYVideoRecorder ()
 
 /// 初始化录像类
 + (instancetype)videoRecordWithPreview:(UIView *)preview;

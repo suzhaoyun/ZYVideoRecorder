@@ -7,17 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		585138201E8518510033EAB5 /* ZYVideoRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5851381D1E8518510033EAB5 /* ZYVideoRecorder.m */; };
+		585138211E8518510033EAB5 /* ZYVideoWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5851381F1E8518510033EAB5 /* ZYVideoWriter.m */; };
 		5866494F1E63C2AB00C7FDC4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5866494E1E63C2AB00C7FDC4 /* main.m */; };
 		586649521E63C2AB00C7FDC4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 586649511E63C2AB00C7FDC4 /* AppDelegate.m */; };
 		586649551E63C2AB00C7FDC4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 586649541E63C2AB00C7FDC4 /* ViewController.m */; };
 		586649581E63C2AB00C7FDC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 586649561E63C2AB00C7FDC4 /* Main.storyboard */; };
 		5866495A1E63C2AB00C7FDC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 586649591E63C2AB00C7FDC4 /* Assets.xcassets */; };
 		5866495D1E63C2AB00C7FDC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5866495B1E63C2AB00C7FDC4 /* LaunchScreen.storyboard */; };
-		586649671E63C2D200C7FDC4 /* ZYVideoRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 586649661E63C2D200C7FDC4 /* ZYVideoRecord.m */; };
-		58DFF3F01E7644D9006B38C5 /* ZYVideoWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 58DFF3EF1E7644D9006B38C5 /* ZYVideoWriter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5851381C1E8518510033EAB5 /* ZYVideoRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYVideoRecorder.h; sourceTree = "<group>"; };
+		5851381D1E8518510033EAB5 /* ZYVideoRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYVideoRecorder.m; sourceTree = "<group>"; };
+		5851381E1E8518510033EAB5 /* ZYVideoWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYVideoWriter.h; sourceTree = "<group>"; };
+		5851381F1E8518510033EAB5 /* ZYVideoWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYVideoWriter.m; sourceTree = "<group>"; };
 		5866494A1E63C2AB00C7FDC4 /* ZYVideoRecordDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZYVideoRecordDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5866494E1E63C2AB00C7FDC4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		586649501E63C2AB00C7FDC4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -28,10 +32,6 @@
 		586649591E63C2AB00C7FDC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5866495C1E63C2AB00C7FDC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5866495E1E63C2AB00C7FDC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		586649651E63C2D200C7FDC4 /* ZYVideoRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYVideoRecord.h; sourceTree = "<group>"; };
-		586649661E63C2D200C7FDC4 /* ZYVideoRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYVideoRecord.m; sourceTree = "<group>"; };
-		58DFF3EE1E7644D9006B38C5 /* ZYVideoWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYVideoWriter.h; sourceTree = "<group>"; };
-		58DFF3EF1E7644D9006B38C5 /* ZYVideoWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYVideoWriter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +45,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5851381B1E8518510033EAB5 /* ZYVideoRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				5851381C1E8518510033EAB5 /* ZYVideoRecorder.h */,
+				5851381D1E8518510033EAB5 /* ZYVideoRecorder.m */,
+				5851381E1E8518510033EAB5 /* ZYVideoWriter.h */,
+				5851381F1E8518510033EAB5 /* ZYVideoWriter.m */,
+			);
+			path = ZYVideoRecorder;
+			sourceTree = "<group>";
+		};
 		586649411E63C2AA00C7FDC4 = {
 			isa = PBXGroup;
 			children = (
@@ -68,11 +79,7 @@
 				586649511E63C2AB00C7FDC4 /* AppDelegate.m */,
 				586649531E63C2AB00C7FDC4 /* ViewController.h */,
 				586649541E63C2AB00C7FDC4 /* ViewController.m */,
-				586649641E63C2C300C7FDC4 /* ZYVideoRecord */,
-				586649561E63C2AB00C7FDC4 /* Main.storyboard */,
-				586649591E63C2AB00C7FDC4 /* Assets.xcassets */,
-				5866495B1E63C2AB00C7FDC4 /* LaunchScreen.storyboard */,
-				5866495E1E63C2AB00C7FDC4 /* Info.plist */,
+				5851381B1E8518510033EAB5 /* ZYVideoRecorder */,
 				5866494D1E63C2AB00C7FDC4 /* Supporting Files */,
 			);
 			path = ZYVideoRecordDemo;
@@ -81,20 +88,13 @@
 		5866494D1E63C2AB00C7FDC4 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				586649561E63C2AB00C7FDC4 /* Main.storyboard */,
+				586649591E63C2AB00C7FDC4 /* Assets.xcassets */,
+				5866495B1E63C2AB00C7FDC4 /* LaunchScreen.storyboard */,
+				5866495E1E63C2AB00C7FDC4 /* Info.plist */,
 				5866494E1E63C2AB00C7FDC4 /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		586649641E63C2C300C7FDC4 /* ZYVideoRecord */ = {
-			isa = PBXGroup;
-			children = (
-				586649651E63C2D200C7FDC4 /* ZYVideoRecord.h */,
-				586649661E63C2D200C7FDC4 /* ZYVideoRecord.m */,
-				58DFF3EE1E7644D9006B38C5 /* ZYVideoWriter.h */,
-				58DFF3EF1E7644D9006B38C5 /* ZYVideoWriter.m */,
-			);
-			path = ZYVideoRecord;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,11 +169,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				585138201E8518510033EAB5 /* ZYVideoRecorder.m in Sources */,
 				586649551E63C2AB00C7FDC4 /* ViewController.m in Sources */,
 				586649521E63C2AB00C7FDC4 /* AppDelegate.m in Sources */,
 				5866494F1E63C2AB00C7FDC4 /* main.m in Sources */,
-				586649671E63C2D200C7FDC4 /* ZYVideoRecord.m in Sources */,
-				58DFF3F01E7644D9006B38C5 /* ZYVideoWriter.m in Sources */,
+				585138211E8518510033EAB5 /* ZYVideoWriter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
