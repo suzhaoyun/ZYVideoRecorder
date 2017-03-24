@@ -36,8 +36,11 @@ static NSString *VideoCacheDirectory = @"ZYVideoRecordCache";
 + (instancetype)videoWriterWithSampleBuffer:(CMSampleBufferRef)sampleBuffer
 {
     ZYVideoWriter *videoWriter = [[self alloc] init];
+    
     [videoWriter checkCachePath];
+    
     [videoWriter initPropertiesWithSampleBuffer:sampleBuffer];
+    
     return videoWriter;
 }
 
@@ -100,7 +103,7 @@ static NSString *VideoCacheDirectory = @"ZYVideoRecordCache";
         }
         //写入失败
         if (_writer.status == AVAssetWriterStatusFailed) {
-            NSLog(@"writer error %@", _writer.error.localizedDescription);
+            NSLog(@"写入失败%@", _writer.error.localizedDescription);
         }
         //判断是否是视频
         if (isVideo) {

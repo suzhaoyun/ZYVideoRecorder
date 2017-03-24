@@ -50,6 +50,6 @@
 
 /// 切换闪光灯
 /// BOOL : 是否成功
-- (BOOL)switchFlashWithMode:(AVCaptureFlashMode)mode;
+- (void)switchFlashWithMode:(AVCaptureFlashMode)mode;
 
 @end

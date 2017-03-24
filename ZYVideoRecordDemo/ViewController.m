@@ -40,9 +40,17 @@
 }
 - (IBAction)play:(id)sender {
     MPMoviePlayerViewController *vc = [[MPMoviePlayerViewController alloc] initWithContentURL:self.videoURL];
+    vc.moviePlayer.scalingMode = MPMovieScalingModeAspectFill;
     [self presentViewController:vc animated:YES completion:nil];
 }
 
+- (IBAction)switch:(id)sender {
+    [self.videoRecorder switchScene];
+}
+- (IBAction)flash:(id)sender {
+    
+    [self.videoRecorder switchFlashWithMode:self.videoRecorder.flashMode?0:1];
+}
 
 - (ZYVideoRecorder *)videoRecorder
 {

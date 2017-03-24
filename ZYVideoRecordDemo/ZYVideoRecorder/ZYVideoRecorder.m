@@ -36,12 +36,13 @@
 
 + (instancetype)videoRecordWithPreview:(UIView *)preview
 {
-    ZYVideoRecorder *record = [[self alloc] init];
-    AVCaptureVideoPreviewLayer *videoLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:record.session];
+    ZYVideoRecorder *recorder = [[self alloc] init];
+    recorder->_scenePosition = AVCaptureDevicePositionBack;
+    AVCaptureVideoPreviewLayer *videoLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:recorder.session];
     videoLayer.frame = preview.bounds;
     [preview.layer insertSublayer:videoLayer atIndex:0];
-    [record setUp];
-    return record;
+    [recorder setUp];
+    return recorder;
 }
 
 #pragma mark - public method
@@ -70,6 +71,55 @@
             _videoWriter = nil;
         }
     }];
+}
+
+- (BOOL)switchScene
+{
+    // 确定要转换的摄像头
+    AVCaptureDevicePosition position = _scenePosition==AVCaptureDevicePositionBack?AVCaptureDevicePositionFront:AVCaptureDevicePositionBack;
+    
+    AVCaptureDevice *device = [self deviceWithPosition:position];
+    
+    if (!device) {
+        return NO;
+    }
+    
+    NSError *error;
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
+    if (error) {
+        return NO;
+    }
+    
+    // 定制session
+    [self.session stopRunning];
+    
+    // 移除原有的输入源
+    [self.session removeInput:self.videoInput];
+    
+    if ([self.session canAddInput:input]) {
+        // 切换新的输入源
+        [self.session addInput:input];
+        self.videoInput = input;
+        _scenePosition = position;
+        [self.session startRunning];
+        return YES;
+    }else{
+        [self.session addInput:self.videoInput];
+        [self.session startRunning];
+        return NO;
+    }
+}
+
+- (void)switchFlashWithMode:(AVCaptureFlashMode)mode
+{
+    AVCaptureDevice *device = [self deviceWithPosition:AVCaptureDevicePositionBack];
+    if (device.flashMode != mode) {
+        [device lockForConfiguration:NULL];
+        device.torchMode = (int)mode;
+        device.flashMode = mode;
+        [device unlockForConfiguration];
+        _flashMode = mode;
+    }
 }
 
 #pragma mark - private method
@@ -101,14 +151,7 @@
 /// 添加视频输入
 - (void)addVideoInput
 {
-    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
-    AVCaptureDevice *device;
-    for (AVCaptureDevice *d in devices) {
-        if (d.position == AVCaptureDevicePositionBack) {
-            device = d;
-            break;
-        }
-    }
+    AVCaptureDevice *device = [self deviceWithPosition:_scenePosition];
     
     if (!device) {
         return;
@@ -145,7 +188,9 @@
 /// 添加音视频输出
 - (void)addOutPut
 {
-    dispatch_queue_t global_q = dispatch_get_global_queue(0, 0);
+    dispatch_queue_t global_q = dispatch_queue_create("ZYVideoRecorderQueue", DISPATCH_QUEUE_SERIAL);
+    
+    // 添加视频输出
     AVCaptureVideoDataOutput *videoDataOutPut = [[AVCaptureVideoDataOutput alloc] init];
     videoDataOutPut.videoSettings = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [NSNumber numberWithInt:kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange], kCVPixelBufferPixelFormatTypeKey,
@@ -154,6 +199,7 @@
     [self.session addOutput:videoDataOutPut];
     [videoDataOutPut connectionWithMediaType:AVMediaTypeVideo].videoOrientation = AVCaptureVideoOrientationPortrait;
     
+    // 添加音频输出
     AVCaptureAudioDataOutput *audioDataOutPut = [[AVCaptureAudioDataOutput alloc] init];
     [audioDataOutPut setSampleBufferDelegate:self queue:global_q];
     [audioDataOutPut connectionWithMediaType:AVMediaTypeAudio];
@@ -179,6 +225,17 @@
         [self.videoWriter appendSampleBuffer:sampleBuffer isVideo:NO];
         NSLog(@"-------音频.....");
     }
+}
+
+- (AVCaptureDevice *)deviceWithPosition:(AVCaptureDevicePosition)position
+{
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    for (AVCaptureDevice *device in devices) {
+        if (device.position == position) {
+            return device;
+        }
+    }
+    return nil;
 }
 
 - (void)timeUpdate
