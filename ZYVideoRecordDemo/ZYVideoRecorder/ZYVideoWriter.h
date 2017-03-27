@@ -11,10 +11,14 @@
 
 @interface ZYVideoWriter : NSObject
 
-/// 根据输入数据 初始化writer
+/**
+ 根据输入数据 初始化writer
+ */
 + (instancetype)videoWriterWithSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 
-/// 添加音视频数据
+/**
+ 添加音视频数据
+ */
 - (void)appendSampleBuffer:(CMSampleBufferRef)sampleBuffer isVideo:(BOOL)isVideo;
 
 /**
