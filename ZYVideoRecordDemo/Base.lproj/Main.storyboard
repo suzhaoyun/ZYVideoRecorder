@@ -21,25 +21,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VCH-7R-20X">
-                                <rect key="frame" x="51" y="547" width="55" height="51"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="开始"/>
-                                <connections>
-                                    <action selector="start:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HVE-ub-OW3"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T34-cP-QQp">
-                                <rect key="frame" x="160" y="547" width="55" height="51"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T34-cP-QQp">
+                                <rect key="frame" x="148" y="498" width="80" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Qxn-HK-Br8"/>
+                                    <constraint firstAttribute="width" constant="80" id="wOD-Qj-TWo"/>
+                                </constraints>
                                 <state key="normal" title="停止"/>
                                 <connections>
                                     <action selector="stop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gOL-M5-ZFl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZ5-uH-6Dc">
-                                <rect key="frame" x="291" y="547" width="55" height="51"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iZ5-uH-6Dc">
+                                <rect key="frame" x="268" y="498" width="80" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="2v6-90-Bcb"/>
+                                    <constraint firstAttribute="height" constant="100" id="FW3-36-1gL"/>
+                                </constraints>
                                 <state key="normal" title="播放"/>
                                 <connections>
                                     <action selector="play:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TDH-er-XQZ"/>
@@ -61,10 +59,40 @@
                                     <action selector="flash:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hmc-2v-OgX"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kOt-oe-UNW">
+                                <rect key="frame" x="182" y="500" width="11" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VCH-7R-20X">
+                                <rect key="frame" x="7" y="498" width="101" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="LTo-op-IsR"/>
+                                    <constraint firstAttribute="width" constant="101" id="XbR-oa-6xb"/>
+                                </constraints>
+                                <state key="normal" title="开始"/>
+                                <connections>
+                                    <action selector="start:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HVE-ub-OW3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="T34-cP-QQp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3om-hQ-l6I"/>
+                            <constraint firstAttribute="bottom" secondItem="kOt-oe-UNW" secondAttribute="bottom" constant="145" id="5D8-H0-zBy"/>
+                            <constraint firstItem="kOt-oe-UNW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5Wq-wq-u8l"/>
+                            <constraint firstItem="T34-cP-QQp" firstAttribute="leading" secondItem="VCH-7R-20X" secondAttribute="trailing" constant="40" id="Ghe-JD-OBN"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="T34-cP-QQp" secondAttribute="bottom" constant="69" id="Sfa-Tt-l5v"/>
+                            <constraint firstItem="iZ5-uH-6Dc" firstAttribute="centerY" secondItem="T34-cP-QQp" secondAttribute="centerY" id="gxZ-Ua-trI"/>
+                            <constraint firstItem="iZ5-uH-6Dc" firstAttribute="leading" secondItem="T34-cP-QQp" secondAttribute="trailing" constant="40" id="i7w-T2-Sbl"/>
+                            <constraint firstItem="VCH-7R-20X" firstAttribute="centerY" secondItem="T34-cP-QQp" secondAttribute="centerY" id="jZC-tn-biA"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="AN7-cV-EG1"/>
+                    <connections>
+                        <outlet property="timeL" destination="kOt-oe-UNW" id="mfm-Im-eqe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

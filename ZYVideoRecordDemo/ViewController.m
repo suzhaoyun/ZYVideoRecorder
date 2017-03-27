@@ -16,6 +16,10 @@
 
 @property (nonatomic, strong) NSURL *videoURL;
 
+@property (weak, nonatomic) IBOutlet UILabel *timeL;
+
+@property (nonatomic, strong) NSTimer *timer;
+
 @end
 
 @implementation ViewController
@@ -27,9 +31,18 @@
 }
 - (IBAction)start:(id)sender {
     [self.videoRecorder startRecord];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(update) userInfo:nil repeats:YES];
+    [self.timer fire];
 }
+
+
+- (void)update{
+    self.timeL.text = [NSString stringWithFormat:@"%.1f", self.videoRecorder.currentDuration];
+}
+
 - (IBAction)stop:(id)sender {
     if (self.videoRecorder.isRecording) {
+        [self.timer invalidate];
         [self.videoRecorder stopRecordWithCompletion:^(NSURL *videoURL) {
             NSLog(@"%@", [NSThread currentThread]);
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -39,9 +52,9 @@
     }
 }
 - (IBAction)play:(id)sender {
-    MPMoviePlayerViewController *vc = [[MPMoviePlayerViewController alloc] initWithContentURL:self.videoURL];
-    vc.moviePlayer.scalingMode = MPMovieScalingModeAspectFill;
-    [self presentViewController:vc animated:YES completion:nil];
+    
+    UIViewController *vc = [UIStoryboard storyboardWithName:@"VideoListViewController" bundle:nil].instantiateInitialViewController;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (IBAction)switch:(id)sender {

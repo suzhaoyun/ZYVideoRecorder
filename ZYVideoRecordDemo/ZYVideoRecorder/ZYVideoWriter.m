@@ -59,7 +59,6 @@ static NSString *VideoCacheDirectory = @"ZYVideoRecordCache";
     _cachePath = path;
 }
 
-
 /**
  初始化各项参数
  @param sampleBuffer 音频数据 为了设置音频输入者的参数
@@ -68,8 +67,8 @@ static NSString *VideoCacheDirectory = @"ZYVideoRecordCache";
 {
     // 1. 初始化文件写入者
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
-    fmt.dateFormat = @"yyyy-MM-dd_HH:mm:ss_video";
-    NSString *filename = [NSString stringWithFormat:@"%@.mp4", [fmt stringFromDate:[NSDate date]]];
+    fmt.dateFormat = @"yyyy-MM-dd_HH:mm:ss";
+    NSString *filename = [NSString stringWithFormat:@"%@_video.mp4", [fmt stringFromDate:[NSDate date]]];
     _videoURL = [NSURL fileURLWithPath:[self.cachePath stringByAppendingPathComponent:filename]];
     _writer = [AVAssetWriter assetWriterWithURL:_videoURL fileType:AVFileTypeMPEG4 error:NULL];
     // 网络播放

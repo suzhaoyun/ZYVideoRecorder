@@ -15,6 +15,10 @@
 		586649581E63C2AB00C7FDC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 586649561E63C2AB00C7FDC4 /* Main.storyboard */; };
 		5866495A1E63C2AB00C7FDC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 586649591E63C2AB00C7FDC4 /* Assets.xcassets */; };
 		5866495D1E63C2AB00C7FDC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5866495B1E63C2AB00C7FDC4 /* LaunchScreen.storyboard */; };
+		58AB03521E88B102002207C2 /* ZYRecordFocusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 58AB03511E88B102002207C2 /* ZYRecordFocusView.m */; };
+		58AB03561E88B230002207C2 /* ZYVideoRecorder.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 58AB03551E88B230002207C2 /* ZYVideoRecorder.bundle */; };
+		58AB03591E88DEF3002207C2 /* VideoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 58AB03581E88DEF3002207C2 /* VideoListViewController.m */; };
+		58AB035B1E88DF1B002207C2 /* VideoListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58AB035A1E88DF1B002207C2 /* VideoListViewController.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +36,12 @@
 		586649591E63C2AB00C7FDC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5866495C1E63C2AB00C7FDC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5866495E1E63C2AB00C7FDC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		58AB03501E88B102002207C2 /* ZYRecordFocusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYRecordFocusView.h; sourceTree = "<group>"; };
+		58AB03511E88B102002207C2 /* ZYRecordFocusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYRecordFocusView.m; sourceTree = "<group>"; };
+		58AB03551E88B230002207C2 /* ZYVideoRecorder.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ZYVideoRecorder.bundle; sourceTree = "<group>"; };
+		58AB03571E88DEF3002207C2 /* VideoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoListViewController.h; sourceTree = "<group>"; };
+		58AB03581E88DEF3002207C2 /* VideoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoListViewController.m; sourceTree = "<group>"; };
+		58AB035A1E88DF1B002207C2 /* VideoListViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = VideoListViewController.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +62,9 @@
 				5851381D1E8518510033EAB5 /* ZYVideoRecorder.m */,
 				5851381E1E8518510033EAB5 /* ZYVideoWriter.h */,
 				5851381F1E8518510033EAB5 /* ZYVideoWriter.m */,
+				58AB03501E88B102002207C2 /* ZYRecordFocusView.h */,
+				58AB03511E88B102002207C2 /* ZYRecordFocusView.m */,
+				58AB03551E88B230002207C2 /* ZYVideoRecorder.bundle */,
 			);
 			path = ZYVideoRecorder;
 			sourceTree = "<group>";
@@ -79,6 +92,9 @@
 				586649511E63C2AB00C7FDC4 /* AppDelegate.m */,
 				586649531E63C2AB00C7FDC4 /* ViewController.h */,
 				586649541E63C2AB00C7FDC4 /* ViewController.m */,
+				58AB03571E88DEF3002207C2 /* VideoListViewController.h */,
+				58AB03581E88DEF3002207C2 /* VideoListViewController.m */,
+				58AB035A1E88DF1B002207C2 /* VideoListViewController.storyboard */,
 				5851381B1E8518510033EAB5 /* ZYVideoRecorder */,
 				5866494D1E63C2AB00C7FDC4 /* Supporting Files */,
 			);
@@ -158,7 +174,9 @@
 			files = (
 				5866495D1E63C2AB00C7FDC4 /* LaunchScreen.storyboard in Resources */,
 				5866495A1E63C2AB00C7FDC4 /* Assets.xcassets in Resources */,
+				58AB03561E88B230002207C2 /* ZYVideoRecorder.bundle in Resources */,
 				586649581E63C2AB00C7FDC4 /* Main.storyboard in Resources */,
+				58AB035B1E88DF1B002207C2 /* VideoListViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,7 +188,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				585138201E8518510033EAB5 /* ZYVideoRecorder.m in Sources */,
+				58AB03521E88B102002207C2 /* ZYRecordFocusView.m in Sources */,
 				586649551E63C2AB00C7FDC4 /* ViewController.m in Sources */,
+				58AB03591E88DEF3002207C2 /* VideoListViewController.m in Sources */,
 				586649521E63C2AB00C7FDC4 /* AppDelegate.m in Sources */,
 				5866494F1E63C2AB00C7FDC4 /* main.m in Sources */,
 				585138211E8518510033EAB5 /* ZYVideoWriter.m in Sources */,
