@@ -1,6 +1,6 @@
 //
 //  ZYRecordFocusView.h
-//  视频录制研究
+//  ZYVideoRecordDemo
 //
 //  Created by ZYSu on 2016/12/27.
 //  Copyright © 2016年 ZYSu. All rights reserved.
@@ -10,7 +10,9 @@
 
 @interface ZYRecordFocusView : UIView
 
-/// 开始对焦动画
+/**
+ 开始对焦动画
+ */
 - (void)startFocusAnimation;
 
 @end
