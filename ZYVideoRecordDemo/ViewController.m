@@ -30,7 +30,12 @@
     [self videoRecorder];
 }
 - (IBAction)start:(id)sender {
-    [self.videoRecorder startRecord];
+    BOOL res = [self.videoRecorder startRecord];
+    if (res == NO) {
+        [[[UIAlertView alloc] initWithTitle:@"提示" message:@"请确保相机和麦克风权限已打开" delegate:nil cancelButtonTitle:@"我知道了" otherButtonTitles:nil, nil] show];
+        return;
+    }
+
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(update) userInfo:nil repeats:YES];
     [self.timer fire];
 }
@@ -41,16 +46,15 @@
 }
 
 - (IBAction)stop:(id)sender {
-    if (self.videoRecorder.isRecording) {
-        [self.timer invalidate];
-        [self.videoRecorder stopRecordWithCompletion:^(NSURL *videoURL) {
-            NSLog(@"%@", [NSThread currentThread]);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.videoURL = videoURL;
-            });
-        }];
-    }
+    [self.timer invalidate];
+    [self.videoRecorder stopRecordWithCompletion:^(NSURL *videoURL) {
+        NSLog(@"%@", [NSThread currentThread]);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.videoURL = videoURL;
+        });
+    }];
 }
+
 - (IBAction)play:(id)sender {
     
     UIViewController *vc = [UIStoryboard storyboardWithName:@"VideoListViewController" bundle:nil].instantiateInitialViewController;
@@ -60,6 +64,7 @@
 - (IBAction)switch:(id)sender {
     [self.videoRecorder switchScene];
 }
+
 - (IBAction)flash:(id)sender {
     
     [self.videoRecorder switchFlashWithMode:self.videoRecorder.flashMode?0:1];

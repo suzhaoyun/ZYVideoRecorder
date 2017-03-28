@@ -22,8 +22,11 @@
     
     NSFileManager *manager = [NSFileManager defaultManager];
     
-    self.urls = [manager contentsOfDirectoryAtURL:[NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"ZYVideoRecordCache"]] includingPropertiesForKeys:nil options:0 error:NULL].mutableCopy;
-    
+    NSArray *urls = [manager contentsOfDirectoryAtURL:[NSURL fileURLWithPath:[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).lastObject stringByAppendingPathComponent:@"ZYVideoRecordCache"]] includingPropertiesForKeys:nil options:0 error:NULL];
+    self.urls = @[].mutableCopy;
+    for (NSInteger i = urls.count-1; i >= 0; i--) {
+        [self.urls addObject:urls[i]];
+    }
     [self.tableView reloadData];
 }
 #pragma mark - Table view data source

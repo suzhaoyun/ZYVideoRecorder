@@ -62,30 +62,36 @@
 #pragma mark - public method
 - (BOOL)startRecord
 {
-    if (self.audioInput == nil || self.videoInput == nil) {
-        return NO;
+    @synchronized (self) {
+        if (self.audioInput == nil || self.videoInput == nil || self.isRecording == YES) {
+            return NO;
+        }
+        
+        _videoWriter = nil;
+        _isRecording = YES;
+        _currentDuration = 0.0;
+        
+        // 开始计时
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timeUpdate) userInfo:nil repeats:YES];
+        [self.timer fire];
+        return YES;
     }
-
-    _isRecording = YES;
-    _currentDuration = 0.0;
-    
-    // 开始计时
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timeUpdate) userInfo:nil repeats:YES];
-    [self.timer fire];
-    
-    return YES;
 }
 
 - (void)stopRecordWithCompletion:(void (^)(NSURL *))completion
 {
-    _isRecording = NO;
-    [self.timer invalidate];
-    [self.videoWriter stopRecordWithCompletion:^(NSURL *videoURL) {
-        if (completion) {
-            completion(videoURL);
-            _videoWriter = nil;
+    @synchronized (self) {
+        if (!self.isRecording) {
+            return;
         }
-    }];
+        _isRecording = NO;
+        [self.timer invalidate];
+        [self.videoWriter stopRecordWithCompletion:^(NSURL *videoURL) {
+            if (completion) {
+                completion(videoURL);
+            }
+        }];
+    }
 }
 
 - (BOOL)switchScene
@@ -106,7 +112,7 @@
     }
     
     // 定制session
-    [self.session stopRunning];
+    [self.session beginConfiguration];
     
     // 移除原有的输入源
     [self.session removeInput:self.videoInput];
@@ -116,11 +122,21 @@
         [self.session addInput:input];
         self.videoInput = input;
         _scenePosition = position;
-        [self.session startRunning];
+        
+        // 重新修复输出的方向
+        [self.session.outputs enumerateObjectsUsingBlock:^(AVCaptureAudioDataOutput *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj connectionWithMediaType:AVMediaTypeVideo].videoOrientation = AVCaptureVideoOrientationPortrait;
+        }];
+        [self.session commitConfiguration];
         return YES;
     }else{
         [self.session addInput:self.videoInput];
-        [self.session startRunning];
+        
+        // 重新修复输出的方向
+        [self.session.outputs enumerateObjectsUsingBlock:^(AVCaptureAudioDataOutput *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj connectionWithMediaType:AVMediaTypeVideo].videoOrientation = AVCaptureVideoOrientationPortrait;
+        }];
+        [self.session commitConfiguration];
         return NO;
     }
 }
@@ -227,7 +243,7 @@
     // 添加音频输出
     AVCaptureAudioDataOutput *audioDataOutPut = [[AVCaptureAudioDataOutput alloc] init];
     [audioDataOutPut setSampleBufferDelegate:self queue:global_q];
-    [audioDataOutPut connectionWithMediaType:AVMediaTypeAudio];
+    [audioDataOutPut connectionWithMediaType:AVMediaTypeAudio].videoOrientation = AVCaptureVideoOrientationPortrait;
     [self.session addOutput:audioDataOutPut];
 }
 
@@ -237,7 +253,6 @@
 - (void)addFocusView
 {
     [self.showView addSubview:self.focusView];
-    
     
     UIPinchGestureRecognizer *pinchGes = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchGes:)];
     [self.showView addGestureRecognizer:pinchGes];
