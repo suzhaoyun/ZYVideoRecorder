@@ -32,8 +32,11 @@
 /// 初始化录像类
 + (instancetype)videoRecordWithPreview:(UIView *)preview;
 
-/// 开始录制
-/// BOOL : 是否成功
+
+/**
+ 开始录制
+ @return 是否成功
+ */
 - (BOOL)startRecord;
 
 /**
@@ -44,12 +47,18 @@
  */
 - (void)stopRecordWithCompletion:(void (^)(NSURL *videoURL))completion;
 
-/// 切换摄像头
-/// BOOL : 是否成功
+/**
+ 切换摄像头
+
+ @return 是否成功
+ */
 - (BOOL)switchScene;
 
-/// 切换闪光灯
-/// BOOL : 是否成功
+/**
+  切换闪光灯
+
+ @param mode 是否成功
+ */
 - (void)switchFlashWithMode:(AVCaptureFlashMode)mode;
 
 @end
