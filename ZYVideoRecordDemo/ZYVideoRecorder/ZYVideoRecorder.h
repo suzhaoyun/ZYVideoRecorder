@@ -4,7 +4,7 @@
 //
 //  Created by ZYSu on 2017/2/27.
 //  Copyright © 2017年 ZYSu. All rights reserved.
-//  自定义的录像类
+//  自定义的录像类 (public)
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
@@ -16,7 +16,7 @@
 @property (nonatomic, assign, readonly) NSTimeInterval currentDuration;
 
 /// 是否正在录制
-@property (nonatomic, assign, readonly) NSTimeInterval isRecording;
+@property (nonatomic, assign, readonly) BOOL isRecording;
 
 /// 摄像头位置
 @property (nonatomic, assign, readonly) AVCaptureDevicePosition scenePosition;

@@ -40,7 +40,6 @@
     [self.timer fire];
 }
 
-
 - (void)update{
     self.timeL.text = [NSString stringWithFormat:@"%.1f", self.videoRecorder.currentDuration];
 }

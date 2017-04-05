@@ -4,7 +4,7 @@
 //
 //  Created by ZYSu on 2017/3/13.
 //  Copyright © 2017年 ZYSu. All rights reserved.
-//  写入视频文件到沙盒
+//  写入视频文件到沙盒 (private)
 
 #import <Foundation/Foundation.h>
 #import <CoreMedia/CoreMedia.h>
