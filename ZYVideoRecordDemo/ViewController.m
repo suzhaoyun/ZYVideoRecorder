@@ -60,7 +60,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (IBAction)switch:(id)sender {
+- (IBAction)switchScene:(id)sender {
     [self.videoRecorder switchScene];
 }
 
